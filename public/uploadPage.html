@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+ <html>
+ <head lang="en">
+     <meta charset="UTF-8">
+     <title>向服务器上传文件</title>
+     <script type="text/javascript">        
+         function uploadFile(){
+             var formData=new FormData();
+             var files=document.getElementById("targetFile").files;
+             alert(JSON.stringify(files));
+             var file=files[0];
+             formData.append("myfile",file);
+             formData.append("abc","extra data");
+             alert(JSON.stringify(formData));
+             var xhr=new XMLHttpRequest();
+             xhr.open("post","/tools/uploadFile.do",true);
+
+             xhr.onload= function (e) {
+                 if(this.status==200)
+                     document.getElementById("result").innerHTML=this.response;
+             };
+             xhr.send(formData);
+         }
+     </script>
+ </head>
+ <body>
+ <form id="form1" enctype="multipart/form-data">  
+ 请选择文件:<input type="file" id="targetFile" name="file" />
+ <input type="button" value="上传文件" onclick="uploadFile();" />
+ </form>
+ <div id="result"></div>
+ </body>
+
+ </html>
