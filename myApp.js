@@ -16,5 +16,16 @@ app.use('/',router);
 
 
 
+app.set('title', 'Archer Application');
+
+// 只用于开发环境
+if ('development' === app.get('env')) {
+app.set('db_uri', 'localhost/dev');
+}
+
+// 只用于生产环境
+if ('production' === app.get('env')) {
+app.set('db_uri', 'n.n.n.n/prod');
+}
 
 app.listen(1337,'127.0.0.1');
